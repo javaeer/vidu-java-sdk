@@ -9,12 +9,14 @@ import lombok.Getter;
  * •	text2video
  * •	img2video
  * •	character2video
+ * •	headtailimg2video
  * •	upscale
  */
 
 @AllArgsConstructor
 public enum TaskTypeEnums implements IEnum<String> {
     UPSCALE("upscale","高级"),
+    HEADTAILIMG2VIDEO("headtailimg2video","人物生视频"),
     CHARACTER2VIDEO("character2video","人物生视频"),
     IMG2VIDEO("img2video","图生视频"),
     TEXT2VIDEO("text2video","文生视频");

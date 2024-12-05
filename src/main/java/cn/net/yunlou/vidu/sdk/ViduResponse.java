@@ -43,6 +43,9 @@ public class ViduResponse {
      * 提交任务的model
      */
     private String model;
+
+    @JsonProperty("model_version")
+    private String modelVersion;
     /**
      * 提交任务的风格
      */

@@ -103,7 +103,7 @@ public class ViduClient {
                 }
             }
 
-            List<Prompt> prompts = task.getPrompts();
+            List<Prompt> prompts = task.getInput().getPrompts();
             if (ObjectUtils.isEmpty(prompts)) {
                 throw new ViduException(400, "prompts 不可为空");
             }

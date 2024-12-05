@@ -28,5 +28,15 @@ public class Input implements Serializable {
      */
     private Boolean enhance;
 
+    /**
+     * 是否开启多主体参考
+     */
+    @JsonProperty(value = "multi_image_boost")
+    private Boolean multiImageBoost;
+
+    /**
+     * 提示词
+     */
+    private List<Prompt> prompts;
 
 }

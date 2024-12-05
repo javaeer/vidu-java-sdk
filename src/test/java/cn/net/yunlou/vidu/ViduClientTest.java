@@ -43,6 +43,7 @@ public class ViduClientTest {
         task.setOutputParams(output);*/
         task.setType(TaskTypeEnums.IMG2VIDEO.getValue());
         task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
+        task.setModelVersion("1.5");
         task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
         ArrayList<Prompt> prompts = Lists.newArrayList();
         Prompt prompt = new Prompt();
@@ -53,14 +54,17 @@ public class ViduClientTest {
         prompt1.setType(PromptTypeEnums.IMAGE.getValue());
         prompt1.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
         prompts.add(prompt1);
-        task.setPrompts(prompts);
+
         Input input = new Input();
         input.setSeed(1L);
         input.setEnhance(false);
+        input.setMultiImageBoost(false);
+        input.setPrompts(prompts);
         task.setInput(input);
         Output output = new Output();
         output.setSampleCount(1);
         output.setDuration(8);
+        output.setAspectRatio("1:1");
         output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
         task.setOutputParams(output);
 
@@ -97,6 +101,6 @@ public class ViduClientTest {
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        viduClient.getTaskApi("2484890214112854");
+        viduClient.getTaskApi("2548774043267062");
     }
 }
