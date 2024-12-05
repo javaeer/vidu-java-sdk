@@ -8,16 +8,29 @@
     <name>vidu-java-sdk</name>
     <packaging>jar</packaging>
     <description>vidu-java-sdk</description>
+    <url>https://github.com/javaeer/vidu-java-sdk</url>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
     </properties>
+
+    <licenses>
+        <license>
+            <name></name>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
+            <id>sonatype-nexus-snapshots</id>
             <name>wangyb</name>
             <email>wangyb@yunlou.net.cn</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
         </developer>
     </developers>
 
@@ -42,16 +55,24 @@
     </dependencies>
 
     <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Releases Repository</name>
-            <url>http://nexus.smartcloudx.com/repository/maven-releases/</url>
-        </repository>
+<!--        <repository>-->
+<!--            <id>nexus-releases</id>-->
+<!--            <name>Nexus Releases Repository</name>-->
+<!--            <url>http://nexus.smartcloudx.com/repository/maven-releases/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>nexus-snapshots</id>-->
+<!--            <name>Nexus Snapshots Repository</name>-->
+<!--            <url>http://nexus.smartcloudx.com/repository/maven-snapshots/</url>-->
+<!--        </snapshotRepository>-->
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots Repository</name>
-            <url>http://nexus.smartcloudx.com/repository/maven-snapshots/</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
     </distributionManagement>
 
     <!--**********************************************************主仓库配置，按设定顺序进行查找 begin**********************************************************-->
@@ -133,6 +154,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <!--   javadoc源码插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -146,6 +168,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--   source源码插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -156,6 +179,26 @@
                         <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <!-- 3.此处executable填写你下载的路径
+                        keyname填写你根据gpg工具生成的秘钥id-->
+                    <executable>/usr/local/bin/gpg</executable>
+                    <keyname>99DA5B4DB67F1436C8013AADB53E1A24F130D3B2</keyname>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>

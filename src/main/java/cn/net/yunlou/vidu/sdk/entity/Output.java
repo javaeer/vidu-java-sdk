@@ -23,4 +23,16 @@ public class Output implements Serializable {
      * 目前支持 4,8
      */
     private Integer duration = 4;
+
+    /**
+     * 视频时长
+     * 目前支持 4,8
+     */
+    @JsonProperty("aspect_ratio")
+    private Integer aspectRatio;
+
+    private String resolution;
+
+    @JsonProperty("movement_amplitude")
+    private String movementAmplitude;
 }

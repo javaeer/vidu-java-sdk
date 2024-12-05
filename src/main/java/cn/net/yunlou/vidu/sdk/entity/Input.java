@@ -17,8 +17,6 @@ public class Input implements Serializable {
     @JsonProperty("creation_id")
     private String creationId;
 
-    private List<Prompt> prompts;
-
     /**
      * 随机种子，不传或者传0则使用随机数替代
      */

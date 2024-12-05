@@ -4,6 +4,7 @@ import cn.net.yunlou.vidu.sdk.entity.Input;
 import cn.net.yunlou.vidu.sdk.entity.Output;
 import cn.net.yunlou.vidu.sdk.entity.Prompt;
 import cn.net.yunlou.vidu.sdk.entity.Task;
+import cn.net.yunlou.vidu.sdk.enums.MovementAmplitudeEnums;
 import cn.net.yunlou.vidu.sdk.enums.PromptTypeEnums;
 import cn.net.yunlou.vidu.sdk.enums.TaskTypeEnums;
 import cn.net.yunlou.vidu.sdk.enums.TextToVideoStyleEnums;
@@ -19,7 +20,7 @@ public class ViduClientTest {
     @Test
     public void testAddTaskApi() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_XXXX_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
@@ -52,14 +53,15 @@ public class ViduClientTest {
         prompt1.setType(PromptTypeEnums.IMAGE.getValue());
         prompt1.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
         prompts.add(prompt1);
+        task.setPrompts(prompts);
         Input input = new Input();
-        input.setPrompts(prompts);
         input.setSeed(1L);
         input.setEnhance(false);
         task.setInput(input);
         Output output = new Output();
         output.setSampleCount(1);
         output.setDuration(8);
+        output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
         task.setOutputParams(output);
 
         viduClient.addTaskApi(task);

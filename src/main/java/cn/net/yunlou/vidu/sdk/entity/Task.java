@@ -1,10 +1,8 @@
 package cn.net.yunlou.vidu.sdk.entity;
 
-import cn.net.yunlou.vidu.sdk.enums.TextToVideoStyleEnums;
-import cn.net.yunlou.vidu.sdk.enums.ToVideoModelEnums;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -21,11 +19,16 @@ public class Task implements Serializable {
 
     private String model;
 
+    @JsonProperty("model_version")
+    private String modelVersion;
+
     private String style;
 
     private boolean moderation;
 
     private Input input;
+
+    private List<Prompt> prompts;
 
     @JsonProperty("output_params")
     private Output outputParams;

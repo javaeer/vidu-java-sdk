@@ -101,27 +101,26 @@ public class ViduClient {
                 if (ObjectUtils.isEmpty(task.getInput().getEnhance())) {
                     throw new ViduException(400, "input.speed 不可为空");
                 }
-
-                List<Prompt> prompts = task.getInput().getPrompts();
-                if (ObjectUtils.isEmpty(prompts)) {
-                    throw new ViduException(400, "prompts 不可为空");
-                }
-                for (Prompt p : prompts) {
-                    if (ObjectUtils.isEmpty(p)) {
-                        throw new ViduException(400, "prompts 不可为空");
-                    }
-                    if (ObjectUtils.isEmpty(p.getType())) {
-                        throw new ViduException(400, "prompt.type 不可为空");
-                    }
-                    if (ObjectUtils.isEmpty(p.getContent())) {
-                        throw new ViduException(400, "prompt.content 不可为空");
-                    }
-                    if (!IEnum.validateValue(p.getType(), PromptTypeEnums.class)) {
-                        throw new ViduException(400, "prompt.type 不是有效值");
-                    }
-                }
             }
 
+            List<Prompt> prompts = task.getPrompts();
+            if (ObjectUtils.isEmpty(prompts)) {
+                throw new ViduException(400, "prompts 不可为空");
+            }
+            for (Prompt p : prompts) {
+                if (ObjectUtils.isEmpty(p)) {
+                    throw new ViduException(400, "prompts 不可为空");
+                }
+                if (ObjectUtils.isEmpty(p.getType())) {
+                    throw new ViduException(400, "prompt.type 不可为空");
+                }
+                if (ObjectUtils.isEmpty(p.getContent())) {
+                    throw new ViduException(400, "prompt.content 不可为空");
+                }
+                if (!IEnum.validateValue(p.getType(), PromptTypeEnums.class)) {
+                    throw new ViduException(400, "prompt.type 不是有效值");
+                }
+            }
 
 
             TaskTypeEnums typeEnums = IEnum.getEnumByValue(task.getType(), TaskTypeEnums.class);
