@@ -55,24 +55,24 @@
     </dependencies>
 
     <distributionManagement>
-<!--        <repository>-->
-<!--            <id>nexus-releases</id>-->
-<!--            <name>Nexus Releases Repository</name>-->
-<!--            <url>http://nexus.smartcloudx.com/repository/maven-releases/</url>-->
-<!--        </repository>-->
-<!--        <snapshotRepository>-->
-<!--            <id>nexus-snapshots</id>-->
-<!--            <name>Nexus Snapshots Repository</name>-->
-<!--            <url>http://nexus.smartcloudx.com/repository/maven-snapshots/</url>-->
-<!--        </snapshotRepository>-->
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Releases Repository</name>
+            <url>http://nexus.smartcloudx.com/repository/maven-releases/</url>
+        </repository>
         <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshots Repository</name>
+            <url>http://nexus.smartcloudx.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <!--<snapshotRepository>
             <id>ossrh</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
+        </repository>-->
     </distributionManagement>
 
     <!--**********************************************************主仓库配置，按设定顺序进行查找 begin**********************************************************-->

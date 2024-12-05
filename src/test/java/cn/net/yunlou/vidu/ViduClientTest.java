@@ -16,9 +16,37 @@ import org.junit.Test;
 
 public class ViduClientTest {
 
+    @Test
+    public void testText2video() {
+        ViduClientConfig clientConfig = new ViduClientConfig();
+        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiVersion("1.0.0");
+        ViduClientConfigUtils.putClientConfig(clientConfig);
+        ViduClient viduClient = new ViduClient();
+        Task task = new Task();
+        task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
+        task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
+        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
+        ArrayList<Prompt> prompts = Lists.newArrayList();
+        Prompt prompt = new Prompt();
+        prompt.setType(PromptTypeEnums.TEXT.getValue());
+        prompt.setContent("一对小情侣接吻");
+        prompts.add(prompt);
+        Input input = new Input();
+        input.setPrompts(prompts);
+        input.setSeed(1L);
+        input.setEnhance(false);
+        task.setInput(input);
+        Output output = new Output();
+        output.setSampleCount(1);
+        output.setDuration(8);
+        task.setOutputParams(output);
+
+        viduClient.addTaskApi(task);
+    }
 
     @Test
-    public void testAddTaskApi() {
+    public void testImg2video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
         clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
         clientConfig.setApiVersion("1.0.0");
@@ -71,7 +99,50 @@ public class ViduClientTest {
         viduClient.addTaskApi(task);
     }
     @Test
-    public void testAddTaskApi2() {
+    public void testCharacter2video() {
+        ViduClientConfig clientConfig = new ViduClientConfig();
+        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiVersion("1.0.0");
+        ViduClientConfigUtils.putClientConfig(clientConfig);
+        ViduClient viduClient = new ViduClient();
+        Task task = new Task();
+        task.setType(TaskTypeEnums.CHARACTER2VIDEO.getValue());
+        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
+        task.setModelVersion("1.5");
+        task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
+        ArrayList<Prompt> prompts = Lists.newArrayList();
+        Prompt prompt = new Prompt();
+        prompt.setType(PromptTypeEnums.TEXT.getValue());
+        prompt.setContent("女孩的手心漂浮着一只半透明金鱼，镜头逐渐拉近，镜头顺时针旋转");
+        prompts.add(prompt);
+        Prompt prompt1 = new Prompt();
+        prompt1.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt1.setContent("https://dev-ss-images.s3.cn-northwest-1.amazonaws.com.cn/tmp/20241126-175112.png");
+        prompts.add(prompt1);
+        Prompt prompt2 = new Prompt();
+        prompt2.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt2.setContent("https://dev-ss-images.s3.cn-northwest-1.amazonaws.com.cn/tmp/20241126-175120.png");
+        prompts.add(prompt1);
+
+        Input input = new Input();
+        input.setSeed(1L);
+        input.setEnhance(false);
+        input.setMultiImageBoost(false);
+        input.setPrompts(prompts);
+        task.setInput(input);
+        Output output = new Output();
+        output.setSampleCount(1);
+        output.setDuration(8);
+        output.setAspectRatio("1:1");
+        output.setResolution("720p");
+        output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
+        task.setOutputParams(output);
+
+        viduClient.addTaskApi(task);
+    }
+
+    @Test
+    public void testUpscale() {
         ViduClientConfig clientConfig = new ViduClientConfig();
         clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
         clientConfig.setApiVersion("1.0.0");
@@ -94,6 +165,8 @@ public class ViduClientTest {
         viduClient.addTaskApi(task);
     }
 
+
+
     @Test
     public void testGetTaskApi() {
         ViduClientConfig clientConfig = new ViduClientConfig();
@@ -101,6 +174,8 @@ public class ViduClientTest {
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        viduClient.getTaskApi("2548774043267062");
+        //viduClient.getTaskApi("2548774043267062");
+        //viduClient.getTaskApi("2548795231012357");
+        viduClient.getTaskApi("2548799434684836");
     }
 }
