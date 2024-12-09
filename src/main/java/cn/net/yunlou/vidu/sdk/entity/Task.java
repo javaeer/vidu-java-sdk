@@ -25,6 +25,16 @@ public class Task implements Serializable {
     private String type;
 
     /**
+     * 场景类型
+     *  可选值
+     * • hug
+     * • kiss
+     * • christmas
+     * • morphlab
+     */
+    private String scene;
+
+    /**
      *
      */
     private String state;

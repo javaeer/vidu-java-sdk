@@ -30,7 +30,7 @@ public class ViduClientTest {
         ArrayList<Prompt> prompts = Lists.newArrayList();
         Prompt prompt = new Prompt();
         prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("一对小情侣接吻");
+        prompt.setContent("男孩子对女孩子说喜欢你，然后小情侣开始接吻，温馨的场面");
         prompts.add(prompt);
         Input input = new Input();
         input.setPrompts(prompts);
@@ -76,12 +76,15 @@ public class ViduClientTest {
         ArrayList<Prompt> prompts = Lists.newArrayList();
         Prompt prompt = new Prompt();
         prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("让人物笑起来");
+        prompt.setContent("让两人拥抱在一起");
         prompts.add(prompt);
         Prompt prompt1 = new Prompt();
         prompt1.setType(PromptTypeEnums.IMAGE.getValue());
         prompt1.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
-        prompts.add(prompt1);
+        Prompt prompt2 = new Prompt();
+        prompt2.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt2.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
+        prompts.add(prompt2);
 
         Input input = new Input();
         input.setSeed(1L);
@@ -154,7 +157,7 @@ public class ViduClientTest {
         task.setModel(UpscaleModelEnums.STABLE.getValue());
 
         Input input = new Input();
-        input.setCreationId("2484889552625059");
+        input.setCreationId("2549713556571138");
         task.setInput(input);
 
         Output output = new Output();
@@ -176,6 +179,8 @@ public class ViduClientTest {
         ViduClient viduClient = new ViduClient();
         //viduClient.getTaskApi("2548774043267062");
         //viduClient.getTaskApi("2548795231012357");
-        viduClient.getTaskApi("2548799434684836");
+        //viduClient.getTaskApi("2548799434684836");
+        //viduClient.getTaskApi("2549713556571138");
+        viduClient.getTaskApi("2553826101320335");
     }
 }

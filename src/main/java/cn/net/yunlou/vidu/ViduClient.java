@@ -33,7 +33,7 @@ public class ViduClient {
 
     public ViduResponse addTaskApi(Task task) {
 
-        validateAddTaskMode(task);
+        //validateAddTaskMode(task);
 
         String url = VIDU_API_DOMAIN + VIDU_API_TASK_ADD;
 
