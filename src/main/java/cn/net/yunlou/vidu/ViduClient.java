@@ -1,6 +1,7 @@
 package cn.net.yunlou.vidu;
 
 import cn.net.yunlou.common.IEnum;
+import cn.net.yunlou.common.utils.BeanUtils;
 import cn.net.yunlou.common.utils.JsonUtils;
 import cn.net.yunlou.common.utils.ObjectUtils;
 import cn.net.yunlou.common.utils.OkHttp3ClientUtils;
@@ -28,6 +29,7 @@ public class ViduClient {
     public static final String VIDU_API_DOMAIN = "https://api.vidu.zone";
 
     public static final String VIDU_API_TASK_ADD = "/ent/v1/tasks";
+    public static final String VIDU_API_SCNEN_TASK_ADD = "/ent/v1/scenes/tasks";
 
     public static final String VIDU_API_TASK_GET = "/ent/v1/tasks/{id}/creations";
 
@@ -56,6 +58,33 @@ public class ViduClient {
 
         return response;
     }
+
+    public ViduResponse addSceneTaskApi(Task task) {
+
+        //validateAddTaskMode(task);
+
+        String url = VIDU_API_DOMAIN + VIDU_API_SCNEN_TASK_ADD;
+
+        HashMap<String, String> headerParams = Maps.newHashMap();
+        headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
+        String json = JsonUtils.toJson(task);
+        System.out.println(json);
+        ViduResponse response = null;
+        try {
+            String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
+            if (ObjectUtils.isNotEmpty(data)) {
+                response = JsonUtils.fromJson(data, ViduResponse.class);
+            }
+            System.out.println(data);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return response;
+    }
+
 
     public ViduResponse getTaskApi(String taskId) {
         String url = VIDU_API_DOMAIN + StringUtils.replace(VIDU_API_TASK_GET, "{id}", taskId);

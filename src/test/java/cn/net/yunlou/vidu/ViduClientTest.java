@@ -6,6 +6,7 @@ import cn.net.yunlou.vidu.sdk.entity.Prompt;
 import cn.net.yunlou.vidu.sdk.entity.Task;
 import cn.net.yunlou.vidu.sdk.enums.MovementAmplitudeEnums;
 import cn.net.yunlou.vidu.sdk.enums.PromptTypeEnums;
+import cn.net.yunlou.vidu.sdk.enums.TaskSceneEnums;
 import cn.net.yunlou.vidu.sdk.enums.TaskTypeEnums;
 import cn.net.yunlou.vidu.sdk.enums.TextToVideoStyleEnums;
 import cn.net.yunlou.vidu.sdk.enums.ToVideoModelEnums;
@@ -17,6 +18,46 @@ import org.junit.Test;
 public class ViduClientTest {
 
     @Test
+    public void sceneVideo() {
+        ViduClientConfig clientConfig = new ViduClientConfig();
+        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiVersion("1.0.0");
+        ViduClientConfigUtils.putClientConfig(clientConfig);
+        ViduClient viduClient = new ViduClient();
+        Task task = new Task();
+        //task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
+        task.setScene(TaskSceneEnums.KISS.getValue());
+        //task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
+        //task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
+        task.setModelVersion("1.5");
+        ArrayList<Prompt> prompts = Lists.newArrayList();
+        Prompt prompt = new Prompt();
+        prompt.setType(PromptTypeEnums.TEXT.getValue());
+        prompt.setContent("两个人亲在一起");
+        prompts.add(prompt);
+        prompt = new Prompt();
+        prompt.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt.setContent("http://dfs.smartcloudx.com/group1/M00/06/6C/cnT9GmdYDcuAHhdHAAf1jguSIdA10.jpeg");
+        prompts.add(prompt);
+        prompt = new Prompt();
+        prompt.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt.setContent("http://dfs.smartcloudx.com/group1/M00/06/6C/cnT9GmdYDjCAZjlAAABR9UbYzkk391.jpg");
+        prompts.add(prompt);
+
+        Input input = new Input();
+        input.setPrompts(prompts);
+        //input.setSeed(1L);
+        //input.setEnhance(false);
+        task.setInput(input);
+        //Output output = new Output();
+        //output.setSampleCount(1);
+        //output.setDuration(8);
+        //task.setOutputParams(output);
+
+        viduClient.addSceneTaskApi(task);
+    }
+
+    @Test
     public void testText2video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
         clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
@@ -24,6 +65,7 @@ public class ViduClientTest {
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
         Task task = new Task();
+        task.setModeration(false);
         task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
         task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
         task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
@@ -181,6 +223,7 @@ public class ViduClientTest {
         //viduClient.getTaskApi("2548795231012357");
         //viduClient.getTaskApi("2548799434684836");
         //viduClient.getTaskApi("2549713556571138");
-        viduClient.getTaskApi("2553826101320335");
+        //viduClient.getTaskApi("2553826101320335");
+        viduClient.getTaskApi("2555754599595403");
     }
 }
