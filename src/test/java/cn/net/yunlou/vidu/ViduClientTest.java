@@ -117,16 +117,10 @@ public class ViduClientTest {
         task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
         ArrayList<Prompt> prompts = Lists.newArrayList();
         Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("让两人拥抱在一起");
+        prompt.setType(PromptTypeEnums.IMAGE.getValue());
+        prompt.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
+
         prompts.add(prompt);
-        Prompt prompt1 = new Prompt();
-        prompt1.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt1.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
-        Prompt prompt2 = new Prompt();
-        prompt2.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt2.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
-        prompts.add(prompt2);
 
         Input input = new Input();
         input.setSeed(1L);
@@ -137,7 +131,7 @@ public class ViduClientTest {
         Output output = new Output();
         output.setSampleCount(1);
         output.setDuration(8);
-        output.setAspectRatio("1:1");
+        output.setAspectRatio("16:9");
         output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
         task.setOutputParams(output);
 
@@ -224,6 +218,6 @@ public class ViduClientTest {
         //viduClient.getTaskApi("2548799434684836");
         //viduClient.getTaskApi("2549713556571138");
         //viduClient.getTaskApi("2553826101320335");
-        viduClient.getTaskApi("2555754599595403");
+        viduClient.getTaskApi("2558723910423224");
     }
 }
