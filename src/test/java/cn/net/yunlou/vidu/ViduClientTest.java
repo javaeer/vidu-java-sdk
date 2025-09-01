@@ -1,223 +1,136 @@
 package cn.net.yunlou.vidu;
 
-import cn.net.yunlou.vidu.sdk.entity.Input;
-import cn.net.yunlou.vidu.sdk.entity.Output;
-import cn.net.yunlou.vidu.sdk.entity.Prompt;
-import cn.net.yunlou.vidu.sdk.entity.Task;
-import cn.net.yunlou.vidu.sdk.enums.MovementAmplitudeEnums;
-import cn.net.yunlou.vidu.sdk.enums.PromptTypeEnums;
-import cn.net.yunlou.vidu.sdk.enums.TaskSceneEnums;
-import cn.net.yunlou.vidu.sdk.enums.TaskTypeEnums;
-import cn.net.yunlou.vidu.sdk.enums.TextToVideoStyleEnums;
-import cn.net.yunlou.vidu.sdk.enums.ToVideoModelEnums;
-import cn.net.yunlou.vidu.sdk.enums.UpscaleModelEnums;
+import cn.net.yunlou.vidu.sdk.*;
+import cn.net.yunlou.vidu.sdk.enums.AspectRatioEnums;
+import cn.net.yunlou.vidu.sdk.enums.ModelEnums;
+import cn.net.yunlou.vidu.sdk.enums.TemplateEnums;
 import com.google.common.collect.Lists;
-import java.util.ArrayList;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class ViduClientTest {
 
+    public static final String API_KEY="vda_XXXXX";
+
+
     @Test
-    public void sceneVideo() {
+    public void img2video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey(API_KEY);
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        Task task = new Task();
-        //task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
-        task.setScene(TaskSceneEnums.KISS.getValue());
-        //task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
-        //task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        task.setModelVersion("1.5");
-        ArrayList<Prompt> prompts = Lists.newArrayList();
-        Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("两个人亲在一起");
-        prompts.add(prompt);
-        prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt.setContent("http://dfs.smartcloudx.com/group1/M00/06/6C/cnT9GmdYDcuAHhdHAAf1jguSIdA10.jpeg");
-        prompts.add(prompt);
-        prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt.setContent("http://dfs.smartcloudx.com/group1/M00/06/6C/cnT9GmdYDjCAZjlAAABR9UbYzkk391.jpg");
-        prompts.add(prompt);
+        Img2VideoViduRequest request = new Img2VideoViduRequest();
 
-        Input input = new Input();
-        input.setPrompts(prompts);
-        //input.setSeed(1L);
-        //input.setEnhance(false);
-        task.setInput(input);
-        //Output output = new Output();
-        //output.setSampleCount(1);
-        //output.setDuration(8);
-        //task.setOutputParams(output);
-
-        viduClient.addSceneTaskApi(task);
+        request.setModel(ModelEnums.VIDUQ1.getValue());
+        ArrayList<String> images = Lists.newArrayList();
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/image2video.png");
+        request.setImages(images);
+        request.setPrompt("The astronaut waved and the camera moved up.");
+        request.setDuration(5);
+        request.setResolution("1080p");
+        request.setOffPeak(false);
+        viduClient.img2Video(request);
     }
-
     @Test
-    public void testText2video() {
+    public void reference2Video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey(API_KEY);
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        Task task = new Task();
-        task.setModeration(false);
-        task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
-        task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
-        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        ArrayList<Prompt> prompts = Lists.newArrayList();
-        Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("男孩子对女孩子说喜欢你，然后小情侣开始接吻，温馨的场面");
-        prompts.add(prompt);
-        Input input = new Input();
-        input.setPrompts(prompts);
-        input.setSeed(1L);
-        input.setEnhance(false);
-        task.setInput(input);
-        Output output = new Output();
-        output.setSampleCount(1);
-        output.setDuration(8);
-        task.setOutputParams(output);
+        Reference2VideoViduRequest request = new Reference2VideoViduRequest();
 
-        viduClient.addTaskApi(task);
+        request.setModel(ModelEnums.VIDUQ1.getValue());
+        ArrayList<String> images = Lists.newArrayList();
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/reference2video-1.png");
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/reference2video-2.png");
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/reference2video-3.png");
+        request.setImages(images);
+        request.setPrompt("Santa Claus and the bear hug by the lakeside.");
+        request.setDuration(5);
+        request.setResolution("1080p");
+        request.setAspectRatio(AspectRatioEnums.R9_16.getValue());
+        request.setOffPeak(false);
+        viduClient.reference2Video(request);
+
     }
 
     @Test
-    public void testImg2video() {
+    public void startEnd2Video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey(API_KEY);
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        Task task = new Task();
-        /*task.setType(TaskTypeEnums.TEXT2VIDEO.getValue());
-        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        ArrayList<Prompt> prompts = Lists.newArrayList();
-        Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("雄鹰在蓝天上翱翔");
-        prompts.add(prompt);
-        Input input = new Input();
-        input.setPrompts(prompts);
-        input.setSeed(1L);
-        input.setEnhance(false);
-        task.setInput(input);
-        Output output = new Output();
-        output.setSampleCount(1);
-        output.setDuration(8);
-        task.setOutputParams(output);*/
-        task.setType(TaskTypeEnums.IMG2VIDEO.getValue());
-        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        task.setModelVersion("1.5");
-        task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
-        ArrayList<Prompt> prompts = Lists.newArrayList();
-        Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt.setContent("https://n.sinaimg.cn/translate/20170906/ZKDd-fykqmrw1599061.jpg");
+        StartEnd2VideoViduRequest request = new StartEnd2VideoViduRequest();
 
-        prompts.add(prompt);
-
-        Input input = new Input();
-        input.setSeed(1L);
-        input.setEnhance(false);
-        input.setMultiImageBoost(false);
-        input.setPrompts(prompts);
-        task.setInput(input);
-        Output output = new Output();
-        output.setSampleCount(1);
-        output.setDuration(8);
-        output.setAspectRatio("16:9");
-        output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
-        task.setOutputParams(output);
-
-        viduClient.addTaskApi(task);
-    }
-    @Test
-    public void testCharacter2video() {
-        ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
-        clientConfig.setApiVersion("1.0.0");
-        ViduClientConfigUtils.putClientConfig(clientConfig);
-        ViduClient viduClient = new ViduClient();
-        Task task = new Task();
-        task.setType(TaskTypeEnums.CHARACTER2VIDEO.getValue());
-        task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        task.setModelVersion("1.5");
-        task.setModel(ToVideoModelEnums.VIDU_HIGH_PERFORMANCE.getValue());
-        ArrayList<Prompt> prompts = Lists.newArrayList();
-        Prompt prompt = new Prompt();
-        prompt.setType(PromptTypeEnums.TEXT.getValue());
-        prompt.setContent("女孩的手心漂浮着一只半透明金鱼，镜头逐渐拉近，镜头顺时针旋转");
-        prompts.add(prompt);
-        Prompt prompt1 = new Prompt();
-        prompt1.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt1.setContent("https://dev-ss-images.s3.cn-northwest-1.amazonaws.com.cn/tmp/20241126-175112.png");
-        prompts.add(prompt1);
-        Prompt prompt2 = new Prompt();
-        prompt2.setType(PromptTypeEnums.IMAGE.getValue());
-        prompt2.setContent("https://dev-ss-images.s3.cn-northwest-1.amazonaws.com.cn/tmp/20241126-175120.png");
-        prompts.add(prompt1);
-
-        Input input = new Input();
-        input.setSeed(1L);
-        input.setEnhance(false);
-        input.setMultiImageBoost(false);
-        input.setPrompts(prompts);
-        task.setInput(input);
-        Output output = new Output();
-        output.setSampleCount(1);
-        output.setDuration(8);
-        output.setAspectRatio("1:1");
-        output.setResolution("720p");
-        output.setMovementAmplitude(MovementAmplitudeEnums.auto.getValue());
-        task.setOutputParams(output);
-
-        viduClient.addTaskApi(task);
+        request.setModel(ModelEnums.VIDUQ1.getValue());
+        ArrayList<String> images = Lists.newArrayList();
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/startend2video-1.jpeg");
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/startend2video-2.jpeg");
+        request.setImages(images);
+        request.setPrompt("The camera zooms in on the bird, which then flies to the right. With its flight being smooth and natural, the bird soars in the sky. with a red light effect following and surrounding it from behind.");
+        request.setDuration(5);
+        request.setResolution("1080p");
+        request.setOffPeak(false);
+        viduClient.startEnd2Video(request);
     }
 
     @Test
-    public void testUpscale() {
+    public void text2Video() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey(API_KEY);
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        Task task = new Task();
-        task.setType(TaskTypeEnums.UPSCALE.getValue());
-        //task.setStyle(TextToVideoStyleEnums.GENERAL.getValue());
-        task.setModel(UpscaleModelEnums.STABLE.getValue());
 
-        Input input = new Input();
-        input.setCreationId("2549713556571138");
-        task.setInput(input);
+        Text2VideoViduRequest request = new Text2VideoViduRequest();
 
-        Output output = new Output();
-        output.setSampleCount(1);
-        output.setDuration(8);
-        task.setOutputParams(output);
-
-        viduClient.addTaskApi(task);
+        request.setModel(ModelEnums.VIDUQ1.getValue());
+        request.setStyle("general");
+        request.setPrompt("In an ultra-realistic fashion photography style featuring light blue and pale amber tones, an astronaut in a spacesuit walks through the fog. The background consists of enchanting white and golden lights, creating a minimalist still life and an impressive panoramic scene.");
+        request.setDuration(5);
+        request.setResolution("1080p");
+        request.setAspectRatio(AspectRatioEnums.R16_9.getValue());
+        request.setOffPeak(false);
+        viduClient.text2Video(request);
     }
+    @Test
+    public void template2Video() {
+        ViduClientConfig clientConfig = new ViduClientConfig();
+        clientConfig.setApiKey(API_KEY);
+        clientConfig.setApiVersion("1.0.0");
+        ViduClientConfigUtils.putClientConfig(clientConfig);
+        ViduClient viduClient = new ViduClient();
 
+        Template2VideoViduRequest request = new Template2VideoViduRequest();
 
+        request.setTemplate(TemplateEnums.HUGGING.getValue());
+        ArrayList<String> images = Lists.newArrayList();
+        images.add("https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/scene-template/hug.jpeg");
+        request.setImages(images);
+        request.setPrompt("Video content\\n画面中的两个主体转向彼此，并开始拥抱# 要求\\n将Motion Level设置为‘Large’");
+        request.setAspectRatio(AspectRatioEnums.R16_9.getValue());
+        request.setWatermark(false);
+        viduClient.template2Video(request);
+    }
 
     @Test
     public void testGetTaskApi() {
         ViduClientConfig clientConfig = new ViduClientConfig();
-        clientConfig.setApiKey("vda_2480427274095509_pCTBbstR0hHyDZ5nDJzoxWSTGBxnsm2s");
+        clientConfig.setApiKey(API_KEY);
         clientConfig.setApiVersion("1.0.0");
         ViduClientConfigUtils.putClientConfig(clientConfig);
         ViduClient viduClient = new ViduClient();
-        //viduClient.getTaskApi("2548774043267062");
-        //viduClient.getTaskApi("2548795231012357");
-        //viduClient.getTaskApi("2548799434684836");
-        //viduClient.getTaskApi("2549713556571138");
-        //viduClient.getTaskApi("2553826101320335");
-        viduClient.getTaskApi("2558723910423224");
+        //viduClient.getTaskApi("857464026177769472");
+        //viduClient.getTaskApi("857503414022606848");
+        //viduClient.getTaskApi("857508046513922048");
+        //viduClient.getTaskApi("857511677267038208");
+        viduClient.getTaskApi("859930141390856192");
     }
+
+
+
 }

@@ -1,85 +1,84 @@
 package cn.net.yunlou.vidu.sdk;
 
-import cn.net.yunlou.vidu.sdk.entity.Creation;
-import cn.net.yunlou.vidu.sdk.entity.Input;
-import cn.net.yunlou.vidu.sdk.entity.Output;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
- * id	string
- * type	string
- * state	string
- * model	string
- * style	string
- * moderation	bool
- * input	struct
- * output_params	struct
+ "task_id": "your_task_id_here",
+ "state": "created",
+ "model": "viduq1",
+ "images": ["https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/image2video.png"],
+ "prompt": "The astronaut waved and the camera moved up.",
+ "duration": 5,
+ "seed": random_number,
+ "resolution": "1080p",
+ "movement_amplitude": "auto",
+ "payload":"",
+ "off_peak": false,
+ "credits":credits_number,
+ "created_at": "2025-01-01T15:41:31.968916Z"
  */
 @Data
 public class ViduResponse {
 
-    public static final String FAILED = "failed";
-    public static final String SUCCESS = "success";
-    public static final String PROCESSING = "processing";
-    public static final String SCHEDULING = "scheduling";
-    public static final String QUEUEING = "queueing";
-    public static final String CREATED = "created";
-
     /**
      * 任务ID，系统生成
      */
-    private String id;
-    /**
-     * 提交的任务类型
-     */
-    private String type;
+    @JsonProperty("id")
+    private String taskId;
     /**
      * 任务状态
      */
     private String state;
+
+    @JsonProperty("err_code")
+    private String errCode;
     /**
      * 提交任务的model
      */
     private String model;
 
-    @JsonProperty("model_version")
-    private String modelVersion;
+    private List<String> images;
+
+    private String prompt;
     /**
      * 提交任务的风格
      */
-    private String style;
-    /**
-     * 提交任务是否开启审核
-     */
-    private Boolean moderation;
+    private Integer duration;
+
     /**
      * 提交任务的input
      */
-    private Input input;
+    private Integer seed;
+
+    private String resolution;
+
+    private Boolean bgm;
     /**
      * 提交任务的输出设置
      */
-    @JsonProperty("output_params")
-    private Output outputParams;
+    @JsonProperty("movement_amplitude")
+    private String movementAmplitude;
 
-    /**
-     * 错误码，具体见错误码表
-     */
-    @JsonProperty("err_code")
-    private String errCode;
-    /**
-     * 成功生成的生成物数量
-     */
-    @JsonProperty("creations_count")
-    private Integer creationsCount;
+    @JsonProperty("payload")
+    private String payload;
+
+    @JsonProperty("off_peak")
+    private Boolean offPeak;
+
+    private Integer credits;
     /**
      * 任务创建时间
      */
     @JsonProperty("created_at")
     private String createdAt;
 
-
+    /**
+     * 生成物
+     */
     private List<Creation> creations;
+
 }

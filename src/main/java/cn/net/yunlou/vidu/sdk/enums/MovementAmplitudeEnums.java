@@ -4,6 +4,10 @@ import cn.net.yunlou.common.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 运动幅度
+ */
+@Getter
 @AllArgsConstructor
 public enum MovementAmplitudeEnums implements IEnum<String> {
     large("large","large"),
@@ -11,9 +15,7 @@ public enum MovementAmplitudeEnums implements IEnum<String> {
     small("small","small"),
     auto("auto","auto");
 
-    @Getter
-    private String value;
+    private final String value;
 
-    @Getter
-    private String label;
+    private final String label;
 }

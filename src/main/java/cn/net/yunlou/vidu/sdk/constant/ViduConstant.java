@@ -1,26 +1,18 @@
 package cn.net.yunlou.vidu.sdk.constant;
 
 public interface ViduConstant {
-    public static final String BadRequest = "";
-    public static final String FieldLacking = "";
-    public static final String FieldUnwanted = "";
-    public static final String FieldItemCountOutOfRange = "";
-    public static final String PageSizeOutOfRange = "";
 
-    public static final String OperationInProcess = "";
-    public static final String TaskPromptPolicyViolation = "";
-    public static final String ImageFormatInvalid = "";
-    public static final String CreditInsufficient = "";
-    public static final String CreationPolicyViolation = "";
-    public static final String Unauthorized = "";
-    public static final String Forbidden = "";
-    public static final String TaskNotFound = "";
-    public static final String CreationNotFound = "";
-    public static final String Conflict = "";
-    public static final String QuotaExceeded = "";
-    public static final String TooManyRequests = "";
-    public static final String SystemThrottling = "";
-    public static final String Canceled = "";
+    public static final String API_DOMAIN = "https://api.vidu.cn";
 
+    public static final String API_IMG_TO_VIDEO = "/ent/v2/img2video";
 
+    public static final String API_REFERENCE_TO_VIDEO = "/ent/v2/reference2video";
+
+    public static final String API_START_END_TO_VIDEO = "/ent/v2/start-end2video";
+
+    public static final String API_TEXT_TO_VIDEO = "/ent/v2/text2video";
+
+    public static final String API_TEMPLATE_TO_VIDEO = "/ent/v2/template2video";
+
+    public static final String API_TASK_GET = "/ent/v2/tasks/{id}/creations";
 }
