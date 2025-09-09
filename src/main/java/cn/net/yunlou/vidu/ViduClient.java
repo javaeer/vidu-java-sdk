@@ -1,7 +1,6 @@
 package cn.net.yunlou.vidu;
 
 import cn.net.yunlou.common.IEnum;
-import cn.net.yunlou.common.IHierarchicalEnum;
 import cn.net.yunlou.common.utils.*;
 import cn.net.yunlou.vidu.sdk.*;
 import cn.net.yunlou.vidu.sdk.constant.ViduConstant;
@@ -17,21 +16,21 @@ import java.util.HashMap;
 @Component
 public class ViduClient {
 
-    public ViduResponse img2Video(Img2VideoViduRequest viduRequest) {
+    public ViduCreateResponse img2Video(Img2VideoViduRequest viduRequest) {
 
         validateImg2VideoMode(viduRequest);
 
-        String url = ViduConstant.API_DOMAIN + ViduConstant.API_IMG_TO_VIDEO;
+        String url = ViduConstant.API_DOMAIN + ApiEnums.IMG_2_VIDEO.getLabel();
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
         System.out.println(json);
-        ViduResponse response = null;
+        ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
-                response = JsonUtils.fromJson(data, ViduResponse.class);
+                response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
             System.out.println(data);
 
@@ -43,21 +42,21 @@ public class ViduClient {
         return response;
     }
 
-    public ViduResponse reference2Video(Reference2VideoViduRequest viduRequest) {
+    public ViduCreateResponse reference2Video(Reference2VideoViduRequest viduRequest) {
 
         validateReference2VideoMode(viduRequest);
 
-        String url = ViduConstant.API_DOMAIN + ViduConstant.API_REFERENCE_TO_VIDEO;
+        String url = ViduConstant.API_DOMAIN + ApiEnums.REFERENCE_2_VIDEO.getLabel();
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
         System.out.println(json);
-        ViduResponse response = null;
+        ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
-                response = JsonUtils.fromJson(data, ViduResponse.class);
+                response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
             System.out.println(data);
 
@@ -70,21 +69,21 @@ public class ViduClient {
     }
 
 
-    public ViduResponse startEnd2Video(StartEnd2VideoViduRequest viduRequest) {
+    public ViduCreateResponse startEnd2Video(StartEnd2VideoViduRequest viduRequest) {
 
         validateStartEnd2VideoMode(viduRequest);
 
-        String url = ViduConstant.API_DOMAIN + ViduConstant.API_START_END_TO_VIDEO;
+        String url = ViduConstant.API_DOMAIN + ApiEnums.START_END_2_VIDEO.getLabel();
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
         System.out.println(json);
-        ViduResponse response = null;
+        ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
-                response = JsonUtils.fromJson(data, ViduResponse.class);
+                response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
             System.out.println(data);
 
@@ -98,21 +97,21 @@ public class ViduClient {
 
 
 
-    public ViduResponse text2Video(Text2VideoViduRequest viduRequest) {
+    public ViduCreateResponse text2Video(Text2VideoViduRequest viduRequest) {
 
         validateText2VideoMode(viduRequest);
 
-        String url = ViduConstant.API_DOMAIN + ViduConstant.API_TEXT_TO_VIDEO;
+        String url = ViduConstant.API_DOMAIN + ApiEnums.TEXT_2_VIDEO.getLabel();
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
         System.out.println(json);
-        ViduResponse response = null;
+        ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
-                response = JsonUtils.fromJson(data, ViduResponse.class);
+                response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
             System.out.println(data);
 
@@ -126,21 +125,21 @@ public class ViduClient {
 
 
 
-    public ViduResponse template2Video(Template2VideoViduRequest viduRequest) {
+    public ViduCreateResponse template2Video(Template2VideoViduRequest viduRequest) {
 
         validateTemplate2VideoMode(viduRequest);
 
-        String url = ViduConstant.API_DOMAIN + ViduConstant.API_TEMPLATE_TO_VIDEO;
+        String url = ViduConstant.API_DOMAIN + ApiEnums.TEMPLATE_2_VIDEO.getLabel();
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
         System.out.println(json);
-        ViduResponse response = null;
+        ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
-                response = JsonUtils.fromJson(data, ViduResponse.class);
+                response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
             System.out.println(data);
 
@@ -156,19 +155,19 @@ public class ViduClient {
 
 
     /**
-     * @param taskId
-     * @return
+     * @param taskId 任务ID 第三方返回
+     * @return 任务详情
      */
-    public ViduResponse getTaskApi(String taskId) {
+    public ViduCatchResponse getTaskApi(String taskId) {
         String url = ViduConstant.API_DOMAIN + StringUtils.replace(ViduConstant.API_TASK_GET, "{id}", taskId);
 
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
-        ViduResponse response = null;
+        ViduCatchResponse response = null;
         String data = OkHttp3ClientUtils.getInstance().getData(url, headerParams);
         System.out.println(data);
         if (ObjectUtils.isNotEmpty(data)) {
-            response = JsonUtils.fromJson(data, ViduResponse.class);
+            response = JsonUtils.fromJson(data, ViduCatchResponse.class);
         }
 
         return response;

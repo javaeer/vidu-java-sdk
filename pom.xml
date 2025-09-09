@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.net.yunlou</groupId>
     <artifactId>vidu-java-sdk</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>vidu-java-sdk</name>
     <packaging>jar</packaging>
     <description>vidu-java-sdk</description>
@@ -58,12 +58,12 @@
         <repository>
             <id>nexus-releases</id>
             <name>Nexus Releases Repository</name>
-            <url>https://nexus.smartcloudx.com/repository/maven-releases/</url>
+            <url>https://nexus.yl2014.com/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>Nexus Snapshots Repository</name>
-            <url>https://nexus.smartcloudx.com/repository/maven-snapshots/</url>
+            <url>https://nexus.yl2014.com/repository/maven-snapshots/</url>
         </snapshotRepository>
         <!--<snapshotRepository>
             <id>ossrh</id>
@@ -81,7 +81,7 @@
         <repository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
-            <url>https://nexus.smartcloudx.com/repository/maven-public/</url>
+            <url>https://nexus.yl2014.com/repository/maven-public/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -122,7 +122,7 @@
         <pluginRepository>
             <id>nexus</id>
             <name>Nexus plugin Releases</name>
-            <url>https://nexus.smartcloudx.com/repository/maven-public/</url>
+            <url>https://nexus.yl2014.com/repository/maven-public/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -183,7 +183,7 @@
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>nexus-release</id>
+                        <id>nexus-releases</id>
                         <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
@@ -192,13 +192,13 @@
                 </executions>
             </plugin>
             <!--gpg -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
                 <configuration>
-                    <!-- 3.此处executable填写你下载的路径
-                        keyname填写你根据gpg工具生成的秘钥id-->
+                    &lt;!&ndash; 3.此处executable填写你下载的路径
+                        keyname填写你根据gpg工具生成的秘钥id&ndash;&gt;
                     <executable>/usr/local/bin/gpg</executable>
                     <keyname>99DA5B4DB67F1436C8013AADB53E1A24F130D3B2</keyname>
                 </configuration>
@@ -211,19 +211,19 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!--自动发布 Jar 到 Maven 仓库-->
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>nexus-release</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.sonatype.plugins</groupId>-->
+<!--                <artifactId>nexus-staging-maven-plugin</artifactId>-->
+<!--                <version>1.6.8</version>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    <serverId>nexus-releases</serverId>-->
+<!--                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+<!--                    <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <!--测试覆盖率统计工具插件-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
