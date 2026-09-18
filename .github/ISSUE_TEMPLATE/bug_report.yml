@@ -1,0 +1,55 @@
+name: 🐛 缺陷报告 / Bug Report
+description: 报告一个可复现的问题
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量提供可复现信息，便于我们定位。
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述 / What happened
+      description: 简明描述缺陷现象与预期行为的差异
+      placeholder: 调用 text2Video 时抛 ViduException ...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤 / Steps to reproduce
+      description: 关键代码片段与调用顺序
+      render: java
+    validations:
+      required: true
+  - type: input
+    id: sdk-version
+    attributes:
+      label: SDK 版本 / SDK version
+      placeholder: "0.0.1-SNAPSHOT"
+    validations:
+      required: true
+  - type: input
+    id: java-version
+    attributes:
+      label: JDK 版本 / Java version
+      placeholder: "1.8 / 8uXXX"
+  - type: dropdown
+    id: api
+    attributes:
+      label: 涉及能力 / Capability
+      options:
+        - text2Video
+        - img2Video
+        - reference2Video
+        - startEnd2Video
+        - template2Video
+        - getTaskApi
+        - 其他 / Other
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / Logs
+      description: 相关异常堆栈或响应内容（勿粘贴真实 API Key）
+      render: shell
