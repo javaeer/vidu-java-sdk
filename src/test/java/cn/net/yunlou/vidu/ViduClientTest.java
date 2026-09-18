@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ViduClientTest {
 
-    public static final String API_KEY="vda_2567229481401807_2Gg5S4Ikfj6zzWd3pGd8690xUFxHJ3Ex";
+    public static final String API_KEY="vda_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 
     @Test
