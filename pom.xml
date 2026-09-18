@@ -51,7 +51,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Spring 5.3.x 最后 OSS 版本，兼容 JDK 8 -->
-        <spring.version>5.3.39</spring.version>
+        <spring.version>7.0.9</spring.version>
         <jakarta-validation.version>2.0.2</jakarta-validation.version>
         <okhttp.version>4.12.0</okhttp.version>
         <lombok.version>1.18.38</lombok.version>
