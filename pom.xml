@@ -52,7 +52,7 @@
 
         <!-- Spring 5.3.x 最后 OSS 版本，兼容 JDK 8 -->
         <spring.version>5.3.39</spring.version>
-        <jakarta-validation.version>2.0.2</jakarta-validation.version>
+        <jakarta-validation.version>3.1.1</jakarta-validation.version>
         <okhttp.version>4.12.0</okhttp.version>
         <lombok.version>1.18.38</lombok.version>
         <guava.version>33.6.0-jre</guava.version>
