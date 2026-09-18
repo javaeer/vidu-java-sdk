@@ -1,9 +1,12 @@
 package cn.net.yunlou.vidu;
 
 
+import lombok.Getter;
+
+@Getter
 public class ViduException extends RuntimeException {
 
-    private Integer code;
+    private final Integer code;
 
     public ViduException(Integer code, String message) {
         super(message);
@@ -11,7 +14,4 @@ public class ViduException extends RuntimeException {
     }
 
 
-    public Integer getCode() {
-        return code;
-    }
 }

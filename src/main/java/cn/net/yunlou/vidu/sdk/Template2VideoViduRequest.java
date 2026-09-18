@@ -57,7 +57,6 @@ public class Template2VideoViduRequest extends ViduRequest<Template2VideoViduReq
      * 异域公主特效专属参数
      * 仅当 template 传 exotic_princess 时可用，可选值如下：
      * 默认：auto, 可选：denmark,uk,africa,china,mexico,switzerland,russia,italy,korea,thailand,india,japan
-     * @see AreaEnums
      */
     private String area;
 
