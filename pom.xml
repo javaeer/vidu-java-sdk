@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>cn.net.yunlou</groupId>
     <artifactId>vidu-java-sdk</artifactId>
     <version>1.0.0</version>
-    <name>vidu-java-sdk</name>
     <packaging>jar</packaging>
-    <description>vidu-java-sdk</description>
-    <url>https://github.com/javaeer/vidu-java-sdk</url>
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
-    </properties>
 
+    <name>vidu-java-sdk</name>
+    <description>Vidu 视频生成服务 Java SDK</description>
+    <url>https://github.com/javaeer/vidu-java-sdk</url>
+
+    <!-- ========== 开源元数据 ========== -->
     <licenses>
         <license>
-            <name></name>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <id>sonatype-nexus-snapshots</id>
+            <id>javaeer</id>
             <name>wangyb</name>
             <email>wangyb@yunlou.net.cn</email>
+            <url>https://github.com/javaeer</url>
             <roles>
                 <role>Project Manager</role>
                 <role>Architect</role>
@@ -34,208 +35,249 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git://github.com/javaeer/vidu-java-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com/javaeer/vidu-java-sdk.git</developerConnection>
+        <url>https://github.com/javaeer/vidu-java-sdk</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <!-- ========== 方案 B：JDK 8 ========== -->
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Spring 5.3.x 最后 OSS 版本，兼容 JDK 8 -->
+        <spring.version>5.3.39</spring.version>
+        <jakarta-validation.version>2.0.2</jakarta-validation.version>
+        <okhttp.version>4.12.0</okhttp.version>
+        <lombok.version>1.18.38</lombok.version>
+        <guava.version>33.6.0-jre</guava.version>
+        <commons-io.version>2.16.1</commons-io.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <commons-net.version>3.11.1</commons-net.version>
+        <jcifs-ng.version>2.1.10</jcifs-ng.version>
+        <ant.version>1.10.15</ant.version>
+        <junit.version>5.10.3</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <!-- 校验 API：Spring 5 对应 javax.* 包名的 2.0.x -->
         <dependency>
-            <groupId>cn.net.yunlou</groupId>
-            <artifactId>common-utils</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta-validation.version}</version>
+        </dependency>
+
+        <!-- Spring Context 5.3.x，SDK 场景标 optional -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- HTTP 客户端 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+
+        <!-- 工具库 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- 网络文件传输 -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+        <!-- 替换有 CVE 的老 jcifs -->
+        <dependency>
+            <groupId>eu.agno3.jcifs</groupId>
+            <artifactId>jcifs-ng</artifactId>
+            <version>${jcifs-ng.version}</version>
+        </dependency>
+
+        <!-- Ant -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>${ant.version}</version>
+        </dependency>
+
+        <!-- Lombok：仅编译期 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 测试：JUnit 5，注意 5.10.x 仍兼容 JDK 8 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>2.0.2</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.21.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.21</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.21.2</version>
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Releases Repository</name>
-            <url>https://nexus.yl2014.com/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots Repository</name>
-            <url>https://nexus.yl2014.com/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <!--<snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>-->
-    </distributionManagement>
-
-    <!--**********************************************************主仓库配置，按设定顺序进行查找 begin**********************************************************-->
-    <repositories>
-        <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
-        <repository>
-            <id>nexus</id>
-            <name>Team Nexus Repository</name>
-            <url>https://nexus.yl2014.com/repository/maven-public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>aliyun-repos</id>
-            <name>aliyun Releases</name>
-            <url>https://maven.aliyun.com/repository/public</url>
-        </repository>
-        <repository>
-            <id>central-repos</id>
-            <name>Central Repository</name>
-            <!--            <url>https://repo.maven.apache.org/maven2</url>-->
-            <url>https://maven.aliyun.com/repository/central</url>
-        </repository>
-        <repository>
-            <id>java-repos</id>
-            <name>Java Repository</name>
-            <url>https://maven.aliyun.com/repository/public</url>
-        </repository>
-        <repository>
-            <id>spring-release</id>
-            <name>Spring Release</name>
-            <url>https://maven.aliyun.com/repository/spring</url>
-        </repository>
-        <repository>
-            <id>scalaz</id>
-            <name>scalaz</name>
-            <url>https://dl.bintray.com/scalaz/releases</url>
-        </repository>
-    </repositories>
-
-    <!-- 设定插件仓库 -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nexus</id>
-            <name>Nexus plugin Releases</name>
-            <url>https://nexus.yl2014.com/repository/maven-public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>aliyun-repos</id>
-            <name>aliyun Releases</name>
-            <url>https://maven.aliyun.com/repository/public</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-release</id>
-            <name>Spring Release</name>
-            <url>https://maven.aliyun.com/repository/spring</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <!--**********************************************************/主仓库配置，按设定顺序进行查找 end**********************************************************-->
+    <!-- 移除所有内网私服与失效仓库（bintray 已关停） -->
+    <!-- 内网私服请配置到 ~/.m2/settings.xml -->
 
     <build>
         <plugins>
+            <!-- 编译：JDK 8 用 source/target（不能用 release） -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>UTF-8</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
+
+            <!-- 测试：不再跳过 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
+                <version>3.2.5</version>
             </plugin>
-            <!--   javadoc源码插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--   source源码插件 -->
+
+            <!-- 源码包 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
-                        <id>nexus-releases</id>
+                        <id>attach-sources</id>
                         <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
+                        <goals><goal>jar-no-fork</goal></goals>
                     </execution>
                 </executions>
             </plugin>
-            <!--gpg -->
-            <!--<plugin>
+
+            <!-- Javadoc：升级，关闭 doclint 避免发布失败 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doclint>none</doclint>
+                    <failOnError>false</failOnError>
+                    <source>8</source>
+                </configuration>
+            </plugin>
+
+            <!-- GPG 签名 -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    &lt;!&ndash; 3.此处executable填写你下载的路径
-                        keyname填写你根据gpg工具生成的秘钥id&ndash;&gt;
-                    <executable>/usr/local/bin/gpg</executable>
-                    <keyname>99DA5B4DB67F1436C8013AADB53E1A24F130D3B2</keyname>
-                </configuration>
+                <version>3.2.7</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
                         <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
+                        <goals><goal>sign</goal></goals>
                     </execution>
                 </executions>
-            </plugin>-->
-            <!--自动发布 Jar 到 Maven 仓库-->
-<!--            <plugin>-->
-<!--                <groupId>org.sonatype.plugins</groupId>-->
-<!--                <artifactId>nexus-staging-maven-plugin</artifactId>-->
-<!--                <version>1.6.8</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    <serverId>nexus-releases</serverId>-->
-<!--                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-<!--                    <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-            <!--测试覆盖率统计工具插件-->
+            </plugin>
+
+            <!-- Central Portal 发布插件（替代旧 OSSRH 流程） -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <formats>
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                    <check/>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
                 </configuration>
+            </plugin>
+
+            <!-- 覆盖率：替换已废弃的 cobertura -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.12</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals><goal>prepare-agent</goal></goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals><goal>report</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

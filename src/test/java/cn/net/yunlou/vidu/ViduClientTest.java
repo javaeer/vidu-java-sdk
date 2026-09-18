@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ViduClientTest {
 
-    public static final String API_KEY="vda_XXXXX";
+    public static final String API_KEY="vda_2567229481401807_2Gg5S4Ikfj6zzWd3pGd8690xUFxHJ3Ex";
 
 
     @Test
@@ -128,7 +128,7 @@ public class ViduClientTest {
         //viduClient.getTaskApi("857503414022606848");
         //viduClient.getTaskApi("857508046513922048");
         //viduClient.getTaskApi("857511677267038208");
-        viduClient.getTaskApi("859930141390856192");
+        viduClient.getTaskApi("850518439075299328");
     }
 
 

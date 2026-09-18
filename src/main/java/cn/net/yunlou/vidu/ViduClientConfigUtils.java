@@ -1,7 +1,7 @@
 package cn.net.yunlou.vidu;
 
+import org.apache.commons.lang3.StringUtils;
 
-import cn.net.yunlou.common.utils.StringUtils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

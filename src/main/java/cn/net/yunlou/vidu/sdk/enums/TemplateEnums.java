@@ -1,8 +1,8 @@
 package cn.net.yunlou.vidu.sdk.enums;
 
-import cn.net.yunlou.common.IHierarchicalEnum;
-import cn.net.yunlou.common.utils.JsonUtils;
+import cn.net.yunlou.vidu.utils.JsonUtils;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +10,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public enum TemplateEnums implements IHierarchicalEnum<String, TemplateEnums> {
 
     HUG("hug", "拥抱", null, null, 1),
@@ -72,23 +73,23 @@ public enum TemplateEnums implements IHierarchicalEnum<String, TemplateEnums> {
 
     public static void main(String[] args) {
         // 1. 验证顶级节点
-        System.out.println("顶级节点:");
+        log.info("顶级节点:");
         IHierarchicalEnum.getTopLevelEnums(TemplateEnums.class)
-                .forEach(e -> System.out.println(e.getLabel()));
+                .forEach(e -> log.info(e.getLabel()));
 
         // 2. 验证子节点
-        System.out.println("\nHUG的子节点:");
+        log.info("\nHUG的子节点:");
         TemplateEnums.HUG.getChildren()
-                .forEach(e -> System.out.println(e.getLabel()));
+                .forEach(e -> log.info(e.getLabel()));
 
         // 3. 验证树形结构
-        System.out.println("\n完整树形结构:");
-        System.out.println(JsonUtils.toJson(IHierarchicalEnum.getTree(TemplateEnums.class)));
+        log.info("\n完整树形结构:");
+        log.info(JsonUtils.toJson(IHierarchicalEnum.getTree(TemplateEnums.class)));
 
 
         // 4. 验证是否有下级
-        System.out.println("\n是否有下级:");
-        System.out.println(TemplateEnums.HUG.hasNextLevel());
+        log.info("\n是否有下级:");
+        log.info(TemplateEnums.HUG.hasNextLevel()+"");
     }
 
 }

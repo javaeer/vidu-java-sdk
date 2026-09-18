@@ -1,16 +1,15 @@
 package cn.net.yunlou.vidu.sdk.enums;
 
-import cn.net.yunlou.common.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
 * FileName: ModelEnums
-* Description: 
+* Description:
 * Created By laughtiger
 * Created At 2025/8/25 12:00
-* Modified By 
-* Modified At 
+* Modified By
+* Modified At
 */
 
 @Getter

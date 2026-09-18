@@ -1,19 +1,22 @@
 package cn.net.yunlou.vidu;
 
-import cn.net.yunlou.common.IEnum;
-import cn.net.yunlou.common.utils.*;
 import cn.net.yunlou.vidu.sdk.*;
 import cn.net.yunlou.vidu.sdk.constant.ViduConstant;
 import cn.net.yunlou.vidu.sdk.enums.*;
 import cn.net.yunlou.vidu.sdk.video.VideoConfig;
 import cn.net.yunlou.vidu.sdk.video.VideoConfigFactory;
+import cn.net.yunlou.vidu.utils.JsonUtils;
+import cn.net.yunlou.vidu.utils.OkHttp3ClientUtils;
 import com.google.common.collect.Maps;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-@Component
+@Slf4j
 public class ViduClient {
 
     public ViduCreateResponse img2Video(Img2VideoViduRequest viduRequest) {
@@ -25,14 +28,14 @@ public class ViduClient {
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
-        System.out.println(json);
+        log.info(json);
         ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
                 response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
-            System.out.println(data);
+            log.info(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -51,14 +54,14 @@ public class ViduClient {
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
-        System.out.println(json);
+        log.info(json);
         ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
                 response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
-            System.out.println(data);
+            log.info(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -78,14 +81,14 @@ public class ViduClient {
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
-        System.out.println(json);
+        log.info(json);
         ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
                 response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
-            System.out.println(data);
+            log.info(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -106,14 +109,14 @@ public class ViduClient {
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
-        System.out.println(json);
+        log.info(json);
         ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
                 response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
-            System.out.println(data);
+            log.info(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -134,14 +137,14 @@ public class ViduClient {
         HashMap<String, String> headerParams = Maps.newHashMap();
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         String json = JsonUtils.toJson(viduRequest);
-        System.out.println(json);
+        log.info(json);
         ViduCreateResponse response = null;
         try {
             String data = OkHttp3ClientUtils.getInstance().postJson(url, headerParams, json);
             if (ObjectUtils.isNotEmpty(data)) {
                 response = JsonUtils.fromJson(data, ViduCreateResponse.class);
             }
-            System.out.println(data);
+            log.info(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -165,7 +168,7 @@ public class ViduClient {
         headerParams.put("Authorization", "Token " + ViduClientConfigUtils.getClientConfig().getApiKey());
         ViduCatchResponse response = null;
         String data = OkHttp3ClientUtils.getInstance().getData(url, headerParams);
-        System.out.println(data);
+        log.info(data);
         if (ObjectUtils.isNotEmpty(data)) {
             response = JsonUtils.fromJson(data, ViduCatchResponse.class);
         }
@@ -279,7 +282,7 @@ public class ViduClient {
             throw new ViduException(400, "参数有误");
         }
 
-        if (Collections3.isEmpty(viduRequest.getImages())) {
+        if (CollectionUtils.isEmpty(viduRequest.getImages())) {
             throw new ViduException(400, "images参数有误 不得为空");
         }
         if (viduRequest.getImages().size() != 2) {
@@ -331,7 +334,7 @@ public class ViduClient {
             throw new ViduException(400, "参数有误");
         }
 
-        if (Collections3.isEmpty(viduRequest.getImages())) {
+        if (CollectionUtils.isEmpty(viduRequest.getImages())) {
             throw new ViduException(400, "images参数有误 不得为空");
         }
         if (viduRequest.getImages().size() > 7) {
@@ -377,7 +380,7 @@ public class ViduClient {
             throw new ViduException(400, "参数有误");
         }
 
-        if (Collections3.isEmpty(viduRequest.getImages()) || viduRequest.getImages().size() > 1) {
+        if (CollectionUtils.isEmpty(viduRequest.getImages()) || viduRequest.getImages().size() > 1) {
             throw new ViduException(400, "images参数有误 不得为空，且 只允许 一张图片");
         }
 

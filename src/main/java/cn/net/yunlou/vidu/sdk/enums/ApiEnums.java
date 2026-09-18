@@ -1,6 +1,5 @@
 package cn.net.yunlou.vidu.sdk.enums;
 
-import cn.net.yunlou.common.IEnum;
 import cn.net.yunlou.vidu.sdk.constant.ViduConstant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
